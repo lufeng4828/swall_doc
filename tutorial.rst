@@ -263,40 +263,41 @@ rsync配置如下::
 
 在启动swall之前，下面给出一个完整配置示例::
 
+    ###swall.conf配置
     [main]
-    #定义角色
     node_role = game,server
-
-    node_ip = 172.17.0.4
-
-    #缓存路径
+    node_ip = 192.168.8.180
     cache = var/cache
-
-    #模块路径
     module = module/
-
-    #文件备份路径
     backup = var/backup
-
-    #plugins路径
     fs_plugin = plugins/fservice
-
-    #pid文件
     pidfile = /tmp/.swall.pid
-
-    #日志定义
     log_file = /data/logs/swall.log
-
     log_level = INFO
-
-    #认证key，数据传输用
     token = yhIC7oenuJDpBxqyP3GSHn7mgQThRHtOnNNwqpJnyPVhR1n9Y9Q+/T3PJfjYCZdiGRrX03CM+VI=
+
+    ###fs.conf配置
+    fs_type = rsync
+    fs_host = 192.168.4.181
+    fs_port = 61768
+    fs_user = swall
+    fs_pass = vGjeVUncnbPV8CcZ
+    fs_tmp_dir = /data/swall_fs
+    fs_failtry = 3
+
+    ###zk.conf配置
+    [main]
+    zk_servers = 192.168.4.181:2181
+    zk_scheme = digest
+    zk_auth = vcode:swall!@#
+    root=/swall
+    nodes=%(root)s/nodes
 
     ###roles.d/server.conf角色配置
     [main]
     project = swall
     agent = sa
-    node_name = %(project)s_%(agent)s_server_172.17.0.4
+    node_name = %(project)s_%(agent)s_server_192.168.8.180
 
     ###roles.d/game.conf配置
     [main]

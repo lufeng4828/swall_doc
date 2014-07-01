@@ -21,9 +21,13 @@ swall的优点
 -------------
 
 msgpack_python >= 0.4.2
+
 paramiko >= 1.14
+
 psutil >= 2.1.1
+
 anyjson >= 0.3.3
+
 swall_pyzk >= 0.5.0
 
 如何使用swall
