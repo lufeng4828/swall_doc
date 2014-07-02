@@ -22,7 +22,7 @@
 上传jdk-7u55-linux-x64.gz到服务器，解压::
 
     [root@zookeeper1 ~]# tar xf jdk-7u55-linux-x64.gz -C /usr/local/
-    [root@zookeeper1 ~]# ls /usr/zookeeper/
+    [root@zookeeper1 ~]# ls /usr/local/
     /usr/local/jdk1.7.0_55
     [root@zookeeper1 ~]# mv /usr/local/jdk1.7.0_55 /usr/local/java
     [root@zookeeper1 ~]#
@@ -76,7 +76,7 @@
     Mode: standalone #说明配置成功
     [root@zookeeper1 bin]#
 
-配置防火墙，允许访问2181端口（这里以RH-Firewall-1-INPUT规则为例）::
+配置防火墙，允许访问2181端口（这里以INPUT规则为例）::
 
     [root@zookeeper1 bin]# iptables -A INPUT -p tcp --dport 2181 -j ACCEPT
     [root@zookeeper1 bin]# iptables -L -n | grep 2181
@@ -91,6 +91,10 @@
 
     [root@swall1 ~]# mkdir /data
     [root@swall1 data]# git clone https://github.com/lufeng4828/swall.git
+
+    [root@swall1 ~]# cd swall
+    [root@swall1 swall]# pip install -r requirememts.txt
+
     [root@swall1 data]# cd swall/conf
 
     主配置swall.conf：
@@ -252,10 +256,10 @@ rsync配置如下::
 
 测试rsync是否正常服务,登录其他机器，这里以192.168.4.180为例::
 
-    [root@swall1 ~]# RSYNC_PASSWORD=vGjeVUncnbPV8CcZ rsync -a --port=61768 --partial /etc/services swall@192.168.8.180::swall_fs/service
+    [root@swall1 ~]# RSYNC_PASSWORD=vGjeVUncnbPV8CcZ rsync -a --port=61768 --partial /etc/services swall@192.168.8.181::swall_fs/service
     [root@swall1 ~]# echo $?
     0
-    [root@swall1 ~]# RSYNC_PASSWORD=vGjeVUncnbPV8CcZ rsync -a --port=61768 --partial swall@192.168.8.180::swall_fs/service /tmp/service
+    [root@swall1 ~]# RSYNC_PASSWORD=vGjeVUncnbPV8CcZ rsync -a --port=61768 --partial swall@192.168.8.181::swall_fs/service /tmp/service
     [root@swall1 ~]# ll /tmp/service
     -rw-r--r-- 1 root root 640999 Jan 12  2010 /tmp/service
 
